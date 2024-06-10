@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 200 800;
+  src: url('https://fonts.googleapis.com/css2?family=Karla:wght@200..800&display=swap');
+}
+
+@font-face {
+  font-family: 'Karla';
+  font-style: italic;
+  font-weight: 200 800;
+  src: url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+}
+
+
+body {
+  font-family: 'Karla', sans-serif;
+}
+.full-screen-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.svgLogo {
+  width: 40%;
+}
+@media (max-width: 1000px) {
+  .darkLogo {
+    display: none;
+  }
+  .svgLogo {
+    width: 10%;
+  }
+}
