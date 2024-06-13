@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <!-- Row for Dashboard Summary Cards -->
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Usuarios Activos</h5>
+                <p class="card-text">1,234</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Ventas</h5>
+                <p class="card-text">$12,345</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Pedidos</h5>
+                <p class="card-text">567</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Alertas</h5>
+                <p class="card-text">3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Row for Charts and Tables -->
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5>Gráfico de Ventas</h5>
+              </div>
+              <div class="card-body">
+                <!-- Aquí se insertaría un gráfico, por ejemplo usando Chart.js -->
+                <canvas id="salesChart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5>Últimos Pedidos</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Pedido #1234</li>
+                  <li class="list-group-item">Pedido #1235</li>
+                  <li class="list-group-item">Pedido #1236</li>
+                  <li class="list-group-item">Pedido #1237</li>
+                  <li class="list-group-item">Pedido #1238</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Row for a Detailed Table -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5>Tabla Detallada</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Fecha de Registro</th>
+                        <th scope="col">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Juan Pérez</td>
+                        <td>juan.perez@example.com</td>
+                        <td>2024-06-01</td>
+                        <td><span class="badge bg-success">Activo</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Maria García</td>
+                        <td>maria.garcia@example.com</td>
+                        <td>2024-06-02</td>
+                        <td><span class="badge bg-danger">Inactivo</span></td>
+                      </tr>
+                      <!-- Más filas según sea necesario -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

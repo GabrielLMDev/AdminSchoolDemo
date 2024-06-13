@@ -14,7 +14,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../../assets/css/index-styles.css?dpl=1.5" />
+    <link rel="stylesheet" href="../../assets/css/index-styles.css?dpl=1.6" />
     <link
       rel="shortcut icon"
       href="../../assets/img/icons/favicon.ico"
@@ -27,7 +27,6 @@
   </head>
 
   <body>
-    <!--Main Navigation-->
     <header>
       <!-- Sidebar -->
       <nav
@@ -35,71 +34,28 @@
         class="collapse d-lg-block sidebar collapse bg-white"
       >
         <div class="position-sticky">
-          <div class="list-group list-group-flush mx-3 mt-4">
+          <div class="list-group list-group-flush mx-3 mt-4" id="sidebar">
             <a
               href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
+              data-section="section1"
+              class="list-group-item list-group-item-action py-2 ripple active"
               aria-current="true"
             >
-              <i class="fas fa-tachometer-alt fa-fw me-3"></i
-              ><span>Main dashboard</span>
+              <i class="fas fa-house fa-fw me-3"></i><span>Inicio</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action py-2 ripple active"
+              data-section="section2"
+              class="list-group-item list-group-item-action py-2 ripple"
             >
-              <i class="fas fa-chart-area fa-fw me-3"></i
-              ><span>Webiste traffic</span>
+              <i class="fas fa-book fa-fw me-3"></i><span>Parciales</span>
             </a>
             <a
               href="#"
+              data-section="section3"
               class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a
-            >
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-chart-line fa-fw me-3"></i
-              ><span>Analytics</span></a
-            >
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-            >
-              <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
-            </a>
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a
-            >
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-globe fa-fw me-3"></i
-              ><span>International</span></a
-            >
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-building fa-fw me-3"></i
-              ><span>Partners</span></a
-            >
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-calendar fa-fw me-3"></i
-              ><span>Calendar</span></a
-            >
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
-            >
-            <a
-              href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a
+              ><i class="fas fa-user-graduate fa-fw me-3"></i
+              ><span>Finales</span></a
             >
           </div>
         </div>
@@ -126,16 +82,16 @@
           <!-- Collapsible wrapper -->
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Navbar brand -->
-            <a class="navbar-brand mt-2 mt-lg-0" href="#">
+            <a class="navbar-brand mt-2 mt-lg-0 mx-5" href="#">
               <img
-                src="../../assets/img/GabrielLMDevText.png"
-                height="50"
+                src="../../assets/img/BLinealSoft.svg"
+                height="30"
                 alt="MDB Logo"
                 loading="lazy"
               />
             </a>
             <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-2">
               <li class="nav-item">
                 <a class="nav-link" href="#">Dashboard</a>
               </li>
@@ -227,11 +183,252 @@
       </nav>
       <!-- Navbar -->
     </header>
-    <!--Main Navigation-->
 
     <!--Main layout-->
     <main style="margin-top: 58px">
-      <div class="container pt-4"></div>
+      <div class="container pt-4" id="content">
+        <section id="section1" class="section container-fluid active-section">
+          <!-- Row for Student Summary Cards -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Promedio General</h5>
+                  <p class="card-text" id="grade_general"></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Asistencia</h5>
+                  <p class="card-text">95%</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Tareas Pendientes</h5>
+                  <p class="card-text">2</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row for Schedule and Announcements -->
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h5>Horario de Clases</h5>
+                </div>
+                <div class="card-body">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Día</th>
+                        <th>08:00 - 09:00</th>
+                        <th>09:00 - 10:00</th>
+                        <th>10:00 - 11:00</th>
+                        <th>11:00 - 12:00</th>
+                        <th>12:00 - 13:00</th>
+                        <th>13:00 - 14:00</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>Lunes</th>
+                        <td>Matemáticas</td>
+                        <td>Historia</td>
+                        <td>Inglés</td>
+                        <td>Receso</td>
+                        <td>Física</td>
+                        <td>Química</td>
+                      </tr>
+                      <!-- Más filas según sea necesario -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h5>Anuncios</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      Reunión de padres el 15 de junio
+                    </li>
+                    <li class="list-group-item">
+                      Entrega de proyectos el 20 de junio
+                    </li>
+                    <li class="list-group-item">
+                      Vacaciones de verano empiezan el 30 de junio
+                    </li>
+                    <!-- Más anuncios según sea necesario -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row for Tasks and Grades -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h5>Tareas Recientes</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      Matemáticas - Ecuaciones cuadráticas (15 de junio)
+                    </li>
+                    <li class="list-group-item">
+                      Historia - Revolución Francesa (16 de junio)
+                    </li>
+                    <li class="list-group-item">
+                      Inglés - Redacción de ensayo (17 de junio)
+                    </li>
+                    <!-- Más tareas según sea necesario -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h5>Calificaciones Recientes</h5>
+                </div>
+                <div class="card-body">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Materia</th>
+                        <th>Calificación</th>
+                        <th>Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Matemáticas</td>
+                        <td>9.5</td>
+                        <td>10 de junio</td>
+                      </tr>
+                      <tr>
+                        <td>Historia</td>
+                        <td>8.0</td>
+                        <td>10 de junio</td>
+                      </tr>
+                      <!-- Más filas según sea necesario -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section2" class="section container-fluid">
+          <div class="card">
+            <div class="card-header text-center py-3">
+              <h5 class="mb-0 text-center">
+                <strong>Sales Performance KPIs</strong>
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Product Detail Views</th>
+                      <th scope="col">Unique Purchases</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Product Revenue</th>
+                      <th scope="col">Avg. Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Value</th>
+                      <td>18,492</td>
+                      <td>228</td>
+                      <td>350</td>
+                      <td>$4,787.64</td>
+                      <td>$13.68</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Percentage change</th>
+                      <td>
+                        <span class="text-danger">
+                          <i class="fas fa-caret-down me-1"></i
+                          ><span>-48.8%%</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-success">
+                          <i class="fas fa-caret-up me-1"></i><span>14.0%</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-success">
+                          <i class="fas fa-caret-up me-1"></i><span>46.4%</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-success">
+                          <i class="fas fa-caret-up me-1"></i><span>29.6%</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-danger">
+                          <i class="fas fa-caret-down me-1"></i
+                          ><span>-11.5%</span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Absolute change</th>
+                      <td>
+                        <span class="text-danger">
+                          <i class="fas fa-caret-down me-1"></i
+                          ><span>-17,654</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-success">
+                          <i class="fas fa-caret-up me-1"></i><span>28</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-success">
+                          <i class="fas fa-caret-up me-1"></i><span>111</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-success">
+                          <i class="fas fa-caret-up me-1"></i
+                          ><span>$1,092.72</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-danger">
+                          <i class="fas fa-caret-down me-1"></i
+                          ><span>$-1.78</span>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
     <!--Main layout-->
 
@@ -246,5 +443,7 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"
     ></script>
+    <script src="../../assets/js/viewSections.js?dpl=1.0"></script>
+    <script src="../../assets/js/function_students.js?dpl=1.5"></script>
   </body>
 </html>

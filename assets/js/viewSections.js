@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const sidebarItems = document.querySelectorAll("#sidebar a");
+    const sidebarItems = document.querySelectorAll("#sidebarMenu a");
     const sections = document.querySelectorAll(".section");
 
     sidebarItems.forEach(item => {
