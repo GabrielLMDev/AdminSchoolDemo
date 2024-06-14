@@ -14,7 +14,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../../assets/css/index-styles.css?dpl=1.6" />
+    <link rel="stylesheet" href="../../assets/css/index-styles.css?dpl=2.1" />
     <link
       rel="shortcut icon"
       href="../../assets/img/icons/favicon.ico"
@@ -25,6 +25,21 @@
       rel="stylesheet"
     />
   </head>
+
+  <div class="preloader">
+    <div style="display: grid; place-items: center">
+      <img class="loader" src="../../assets/img/LinealSoftDark.png" />
+    </div>
+    <div class="preloader-logo" style="display: grid; place-items: center">
+      <span class="logo">GabrielLM</span
+      ><span class="logo"
+        ><span style="color: #6aa3db">{</span>Developer<span
+          style="color: #6aa3db"
+          >}</span
+        ></span
+      >
+    </div>
+  </div>
 
   <body>
     <header>
@@ -336,92 +351,61 @@
           <div class="card">
             <div class="card-header text-center py-3">
               <h5 class="mb-0 text-center">
-                <strong>Sales Performance KPIs</strong>
+                <strong>Calificaciones Parciales</strong>
               </h5>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-hover text-nowrap">
+                <table
+                  class="table table-hover text-nowrap"
+                  id="actual_grades_table"
+                >
                   <thead>
                     <tr>
                       <th scope="col"></th>
-                      <th scope="col">Product Detail Views</th>
-                      <th scope="col">Unique Purchases</th>
-                      <th scope="col">Quantity</th>
-                      <th scope="col">Product Revenue</th>
-                      <th scope="col">Avg. Price</th>
+                      <th scope="col">Primer Parcial</th>
+                      <th scope="col">Segundo Parcial</th>
+                      <th scope="col">Tercer Parcial</th>
+                      <th scope="col">Final</th>
+                      <th scope="col">Maestro</th>
+                      <th scope="col">Tipo</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <tr></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section3" class="section container-fluid">
+          <div class="card">
+            <div class="card-header text-center py-3">
+              <h5 class="mb-0 text-center">
+                <strong>Calificaciones Finales</strong>
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table
+                  class="table table-hover text-nowrap"
+                  id="total_grades_table"
+                >
+                  <thead>
                     <tr>
-                      <th scope="row">Value</th>
-                      <td>18,492</td>
-                      <td>228</td>
-                      <td>350</td>
-                      <td>$4,787.64</td>
-                      <td>$13.68</td>
+                      <th scope="col"></th>
+                      <th scope="col">Primer Parcial</th>
+                      <th scope="col">Segundo Parcial</th>
+                      <th scope="col">Tercer Parcial</th>
+                      <th scope="col">Final</th>
+                      <th scope="col">Maestro</th>
+                      <th scope="col">Tipo</th>
                     </tr>
-                    <tr>
-                      <th scope="row">Percentage change</th>
-                      <td>
-                        <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                          ><span>-48.8%%</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>14.0%</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>46.4%</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>29.6%</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                          ><span>-11.5%</span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Absolute change</th>
-                      <td>
-                        <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                          ><span>-17,654</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>28</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>111</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i
-                          ><span>$1,092.72</span>
-                        </span>
-                      </td>
-                      <td>
-                        <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                          ><span>$-1.78</span>
-                        </span>
-                      </td>
-                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr></tr>
                   </tbody>
                 </table>
               </div>
@@ -444,6 +428,12 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.umd.min.js"
     ></script>
     <script src="../../assets/js/viewSections.js?dpl=1.0"></script>
-    <script src="../../assets/js/function_students.js?dpl=1.5"></script>
+    <script src="../../assets/js/function_students.js?dpl=1.9"></script>
+    <script src="../../assets/js/preloader.js?dpl=1.0"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

@@ -26,7 +26,11 @@ if ($data && isset($data['student_number']) && isset($data['password'])) {
 
     try {
         // Ejemplo de consulta preparada para evitar inyección SQL
-        $stmt = $conn->prepare("SELECT * FROM access_student WHERE student_number = :student_number");
+        $stmt = $conn->prepare("SELECT access_student.student_number, access_student.password, students.semester
+        FROM access_student 
+        JOIN students
+        ON students.student_number = access_student.student_number
+        WHERE access_student.student_number = :student_number");
         $stmt->bindParam(':student_number', $student_number, PDO::PARAM_STR);
         $stmt->execute();
         $student = $stmt->fetch();
@@ -38,6 +42,7 @@ if ($data && isset($data['student_number']) && isset($data['password'])) {
                 $cookie_name = "id_student_access";
                 $cookie_values = array(
                     "student_number" => $student['student_number'],
+                    "semester" => $student['semester'],
                 );
                 $cookie_value = json_encode($cookie_values);
                 $expiration_time = time() + (86400 * 10); // La cookie dura 10 días

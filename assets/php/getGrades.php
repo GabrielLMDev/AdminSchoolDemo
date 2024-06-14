@@ -1,4 +1,6 @@
 <?php
+$cookie_value = $_COOKIE['id_student_access']; //obtener cookie.
+$cookie_values = json_decode($cookie_value, true); //obtener los valores de la cookie.
 // Función para sanitizar los datos de entrada (Etiquetas HTML)
 function sanitizeInput($data)
 {
@@ -19,17 +21,18 @@ $data = json_decode($json, true);
 
 /*Variables para debug.
 $data['option'] = '1';
-$data['enrollment_id'] = '1';
+$cookie_values['student_number'] = '2024061076';
+$cookie_values['semester'] = '2';
 */
 
-if ($data && isset($data['option']) && isset($data['enrollment_id']) && between($data['option'], 1, 3)) {
+if ($data && isset($data['option']) && between($data['option'], 1, 3) && $cookie_values['student_number'] && $cookie_values['semester']) {
     switch ($data['option']) {
         case '1':
-            getGradePerSubject($data['enrollment_id']);
+            getActualGrades($cookie_values['student_number'], $cookie_values['semester']);
             break;
 
         case '2':
-            getGradeGeneral($data['enrollment_id']);
+            getGradeGeneral($cookie_values['student_number']);
             break;
     }
 } else {
@@ -38,40 +41,103 @@ if ($data && isset($data['option']) && isset($data['enrollment_id']) && between(
 }
 
 // Función para obtener la calificacion general de una materia.
-function getGradePerSubject($enrollment_id)
+function getActualGrades($student_number, $semester)
 {
     // Incluir el archivo de conexión a la base de datos solo una vez.
     require_once 'db_connection.php';
 
-    $enrollment_id = sanitizeInput($enrollment_id);
+    $student_number = sanitizeInput($student_number);
+    $semester = sanitizeInput($semester);
 
     // Consulta preparada para evitar inyección SQL
-    $stmt = $conn->prepare("SELECT *, (SELECT SUM(`grade`) 
-    FROM `grades` 
-    WHERE `enrollment_id` = :enrollment_id_total) as total_grades 
-    FROM `grades` 
-    WHERE `enrollment_id` = :enrollment_id");
-    $stmt->bindParam(':enrollment_id_total', $enrollment_id, PDO::PARAM_STR);
-    $stmt->bindParam(':enrollment_id', $enrollment_id, PDO::PARAM_STR);
+    $stmt = $conn->prepare("SELECT enrollments.student_number, enrollments.enrollment_id, grades.partial, grades.grade, classes.subject_id, classes.semester, classes.teacher_number, teachers.first_name, teachers.last_name, subjects.name, subjects.type 
+    FROM enrollments 
+    JOIN grades ON grades.enrollment_id = enrollments.enrollment_id 
+    JOIN classes ON classes.class_id = enrollments.class_id 
+    JOIN subjects ON subjects.subject_id = classes.subject_id 
+    JOIN teachers ON teachers.teacher_number = classes.teacher_number 
+    WHERE enrollments.student_number = :student_number AND enrollments.semester = :semester");
+    $stmt->bindParam(':student_number', $student_number, PDO::PARAM_STR);
+    $stmt->bindParam(':semester', $semester, PDO::PARAM_INT);
     $stmt->execute();
-    $dataAfter = $stmt->fetchAll(PDO::FETCH_ASSOC); // Usamos fetchAll() para obtener todos los resultados
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC); // Usamos fetchAll() para obtener todos los resultados
+    $result = [];
+    $subjects = [];
+
+    foreach ($data as $entry) {
+        $enrollment_id = $entry['enrollment_id'];
+
+        if (!isset($subjects[$enrollment_id])) {
+            $subjects[$enrollment_id] = [
+                'name' => $entry['name'],
+                'teacher' => $entry['first_name'] . ' ' . $entry['last_name'],
+                'grades' => [],
+                'type' => $entry['type'],
+                'final' => 0,
+                'count' => 0
+            ];
+        }
+
+        $subjects[$enrollment_id]['grades'][$entry['partial']] = floatval($entry['grade']);
+        $subjects[$enrollment_id]['final'] += floatval($entry['grade']);
+        $subjects[$enrollment_id]['count']++;
+    }
+
+    foreach ($subjects as $enrollment_id => $subject) {
+        $subject['final'] = $subject['count'] ? $subject['final'] / $subject['count'] : 0;
+        $result[] = $subject;
+    }
+
     header('Content-Type: application/json');
-    $dataAfter['status'] = 'success';
-    echo json_encode($dataAfter);
+    echo json_encode(['status' => 'success', 'data' => $result]);
 }
 
-function getGradeGeneral($enrollment_id)
+function getGradeGeneral($student_number)
 {
     // Incluir el archivo de conexión a la base de datos solo una vez.
     require_once 'db_connection.php';
 
-    $enrollment_id = sanitizeInput($enrollment_id);
+    $student_number = sanitizeInput($student_number);
 
     // Consulta preparada para evitar inyección SQL
-    $stmt = $conn->prepare("SELECT AVG(`grade`) AS grade_general FROM `grades` WHERE `enrollment_id` >= 1 && `enrollment_id` <= 6");
+    $stmt = $conn->prepare("SELECT enrollments.student_number, enrollments.enrollment_id, grades.partial, grades.grade, classes.subject_id, classes.semester, classes.teacher_number, teachers.first_name, teachers.last_name, subjects.name, subjects.type 
+    FROM enrollments 
+    JOIN grades ON grades.enrollment_id = enrollments.enrollment_id 
+    JOIN classes ON classes.class_id = enrollments.class_id 
+    JOIN subjects ON subjects.subject_id = classes.subject_id 
+    JOIN teachers ON teachers.teacher_number = classes.teacher_number 
+    WHERE enrollments.student_number = :student_number");
+    $stmt->bindParam(':student_number', $student_number, PDO::PARAM_STR);
     $stmt->execute();
-    $dataAfter = $stmt->fetch(PDO::FETCH_ASSOC); // Usamos fetch para obtener el resultado.
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC); // Usamos fetchAll() para obtener todos los resultados
+
+    $result = [];
+    $subjects = [];
+
+    foreach ($data as $entry) {
+        $enrollment_id = $entry['enrollment_id'];
+
+        if (!isset($subjects[$enrollment_id])) {
+            $subjects[$enrollment_id] = [
+                'name' => $entry['name'],
+                'teacher' => $entry['first_name'] . ' ' . $entry['last_name'],
+                'grades' => [],
+                'type' => $entry['type'],
+                'final' => 0,
+                'count' => 0
+            ];
+        }
+
+        $subjects[$enrollment_id]['grades'][$entry['partial']] = floatval($entry['grade']);
+        $subjects[$enrollment_id]['final'] += floatval($entry['grade']);
+        $subjects[$enrollment_id]['count']++;
+    }
+
+    foreach ($subjects as $enrollment_id => $subject) {
+        $subject['final'] = $subject['count'] ? $subject['final'] / $subject['count'] : 0;
+        $result[] = $subject;
+    }
+
     header('Content-Type: application/json');
-    $dataAfter['status'] = 'success';
-    echo json_encode($dataAfter);
+    echo json_encode(['status' => 'success', 'data' => $result]);
 }
