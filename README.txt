@@ -13,6 +13,7 @@ Credits:
     
     Other:
 	Bootstrap: 		(https://www.getbootstrap.com)
+	JQuery:			(https://releases.jquery.com/)
 	MDB:                	(https://mdbootstrap.com/)
 
 Classes Table:
