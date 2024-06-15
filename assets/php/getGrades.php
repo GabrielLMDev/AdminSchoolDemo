@@ -20,7 +20,7 @@ $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
 /*Variables para debug.
-$data['option'] = '1';
+$data['option'] = '3';
 $cookie_values['student_number'] = '2024061076';
 $cookie_values['semester'] = '2';
 */
@@ -32,7 +32,11 @@ if ($data && isset($data['option']) && between($data['option'], 1, 3) && $cookie
             break;
 
         case '2':
-            getGradeGeneral($cookie_values['student_number']);
+            getGeneralGrades($cookie_values['student_number']);
+            break;
+
+        case '3':
+            getGeneralGrade($cookie_values['student_number']);
             break;
     }
 } else {
@@ -92,7 +96,7 @@ function getActualGrades($student_number, $semester)
     echo json_encode(['status' => 'success', 'data' => $result]);
 }
 
-function getGradeGeneral($student_number)
+function getGeneralGrades($student_number)
 {
     // Incluir el archivo de conexión a la base de datos solo una vez.
     require_once 'db_connection.php';
@@ -140,4 +144,22 @@ function getGradeGeneral($student_number)
 
     header('Content-Type: application/json');
     echo json_encode(['status' => 'success', 'data' => $result]);
+}
+
+function getGeneralGrade($student_number)
+{
+    // Incluir el archivo de conexión a la base de datos solo una vez.
+    require_once 'db_connection.php';
+
+    $student_number = sanitizeInput($student_number);
+
+    // Consulta preparada para evitar inyección SQL
+    $stmt = $conn->prepare("SELECT AVG(grades.grade) AS grade_general
+    FROM enrollments
+    JOIN grades ON grades.enrollment_id = enrollments.enrollment_id
+    WHERE enrollments.student_number = :student_number");
+    $stmt->bindParam(':student_number', $student_number, PDO::PARAM_STR);
+    $stmt->execute();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC); // Usamos fetch para obtener el resultado.
+    echo json_encode(['status' => 'success', 'data' => $data['grade_general']],);
 }

@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", (event) => {
+    getFinalGrade();
     getActualGrades();
     getGradeGeneral();
 });
@@ -86,7 +87,6 @@ async function getGradeGeneral() {
 
     const data = {
         option: 2,
-        enrollment_id: 1
     };
 
     try {
@@ -153,6 +153,39 @@ async function getGradeGeneral() {
             });
         } else {
             console.error('Error en la respuesta del servidor:', result);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function getFinalGrade() {
+    const url = '../../assets/php/getGrades.php';
+
+    const data = {
+        option: 3,
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Response Server:', result);
+        if (result.status == 'success') {
+            let grade_general = parseFloat(result.data);
+            document.getElementById('grade_general').innerHTML = grade_general.toFixed(2);
+        } else {
+
         }
     } catch (error) {
         console.error('Error:', error);
