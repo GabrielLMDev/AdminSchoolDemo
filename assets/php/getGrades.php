@@ -161,5 +161,7 @@ function getGeneralGrade($student_number)
     $stmt->bindParam(':student_number', $student_number, PDO::PARAM_STR);
     $stmt->execute();
     $data = $stmt->fetch(PDO::FETCH_ASSOC); // Usamos fetch para obtener el resultado.
+
+    header('Content-Type: application/json');
     echo json_encode(['status' => 'success', 'data' => $data['grade_general']],);
 }

@@ -1,9 +1,38 @@
 document.addEventListener("DOMContentLoaded", (event) => {
+    getGeneralAttendance();
     getFinalGrade();
     getActualGrades();
     getGradeGeneral();
 });
 
+async function getGeneralAttendance() {
+    const url = '../../assets/php/getAttendance.php';
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Response Server:', result.status + " Actual Attendance");
+
+        if (result.status === 'success') {
+            let percent = parseFloat(result.percent_attendance);
+            document.getElementById('attendance').innerHTML = percent.toFixed(1) + "%";
+        } else {
+            console.error('Error en la respuesta del servidor:', result);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 
 async function getActualGrades() {
     const url = '../../assets/php/getGrades.php';
